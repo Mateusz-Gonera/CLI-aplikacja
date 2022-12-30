@@ -37,8 +37,8 @@ const getContactById = async (contactId) => {
     const contacts = await fetchContacts();
     const element = contacts.find((contact) => contact.id === contactId);
     if (!element) {
-      console.log(`This contact doesn't exist`.brightRed);
-      return
+      console.log(`This contact doesn't exist on the list`.brightRed);
+      return;
     }
     console.log(element);
     return;
@@ -52,7 +52,7 @@ const removeContact = async (contactId) => {
     const contacts = await fetchContacts();
     const newContacts = contacts.filter((contact) => contact.id !== contactId);
     await pushContacts(newContacts);
-    console.log('You removed contact successfully!'.blue);
+    console.log("You removed contact successfully!".blue);
     return;
   } catch (err) {
     console.log(err.message);
@@ -65,7 +65,10 @@ const addContact = async (name, email, phone) => {
     const newContact = { id: `${contacts.length + 1}`, name, email, phone };
     contacts.push(newContact);
     await pushContacts(contacts);
-    console.log(`You added new contact ${JSON.stringify(newContact)} successfully!`.green);
+    console.log(
+      `You added new contact (${JSON.stringify(newContact)}) successfully!`
+        .brightGreen
+    );
     return;
   } catch (err) {
     console.log(err.message);
