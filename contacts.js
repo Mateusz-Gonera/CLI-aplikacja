@@ -1,5 +1,6 @@
 const fs = require("node:fs").promises;
 const path = require("node:path");
+require("colors");
 
 const contactsPath = path.resolve("./db/contacts.json");
 
@@ -47,6 +48,7 @@ const removeContact = async (contactId) => {
     const contacts = await fetchContacts();
     const newContacts = contacts.filter((contact) => contact.id !== contactId);
     await pushContacts(newContacts);
+    console.log('You remove contact successfully!'.blue);
     return;
   } catch (err) {
     console.log(err.message);
@@ -59,6 +61,7 @@ const addContact = async (name, email, phone) => {
     const newContact = { id: `${contacts.length + 1}`, name, email, phone };
     contacts.push(newContact);
     await pushContacts(contacts);
+    console.log(`You add new contact ${JSON.stringify(newContact)} successfully!`.green);
     return;
   } catch (err) {
     console.log(err.message);
